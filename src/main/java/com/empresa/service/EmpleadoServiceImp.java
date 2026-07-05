@@ -4,7 +4,7 @@ import com.empresa.dto.EmpleadoResponseDTO;
 import com.empresa.converter.EmpleadoConverterDTO;
 import com.empresa.dto.EmpleadoRequestDTO;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,8 +37,8 @@ public class EmpleadoServiceImp implements EmpleadoService{
 	public EmpleadoResponseDTO guardar(EmpleadoRequestDTO dto) {
 		
 		Empleado empleado = EmpleadoConverterDTO.toEntity(dto);
-		Empleado empleadoSave = empleadoRep.save(empleado);
-		return EmpleadoConverterDTO.toResponseDTO(empleadoSave);
+		Empleado empleadoGuardado = empleadoRep.save(empleado);
+		return EmpleadoConverterDTO.toResponseDTO(empleadoGuardado);
 	}
 
 	@Override

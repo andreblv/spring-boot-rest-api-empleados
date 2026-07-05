@@ -1,13 +1,16 @@
 package com.empresa.service;
 
+import com.empresa.dto.EmpleadoRequestDTO;
+import com.empresa.dto.EmpleadoResponseDTO;
 import com.empresa.entity.Empleado;
 import java.util.*;
 
 public interface EmpleadoService {
 	
-	public abstract List<Empleado> listarTodos();
-	public abstract Optional<Empleado> buscarPorId(Long id);
-	public abstract Empleado guardar(Empleado empleado);
-	public void eliminar (Long id);
+	List<EmpleadoResponseDTO> listarTodos();
+	EmpleadoResponseDTO buscarPorId(Long id);
+	EmpleadoResponseDTO guardar(EmpleadoRequestDTO empleadoRequestDTO);
+	EmpleadoResponseDTO editar(Long id, EmpleadoRequestDTO empleadoRequestDTO);
+	void eliminar(Long id);
 	
 }

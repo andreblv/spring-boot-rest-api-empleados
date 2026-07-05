@@ -1,6 +1,8 @@
 package com.empresa.service;
 
-
+import com.empresa.dto.EmpleadoResponseDTO;
+import com.empresa.converter.EmpleadoConverterDTO;
+import com.empresa.dto.EmpleadoRequestDTO;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,18 +18,27 @@ public class EmpleadoServiceImp implements EmpleadoService{
 	private EmpleadoRepository empleadoRep;
 	
 	@Override
-	public List<Empleado> listarTodos() {
-		return empleadoRep.findAll();
+	public List<EmpleadoResponseDTO> listarTodos() {
+	    return empleadoRep.findAll()
+	            .stream()
+	            .map(EmpleadoConverterDTO::toResponseDTO)
+	            .toList();
+
 	}
 
 	@Override
-	public Optional<Empleado> buscarPorId(Long id) {
-		return empleadoRep.findById(id);
+	public EmpleadoResponseDTO buscarPorId(Long id) {
+		Empleado empleado = empleadoRep.findById(id)
+				.orElseThrow();
+		return EmpleadoConverterDTO.toResponseDTO(empleado);
 	}
 
 	@Override
-	public Empleado guardar(Empleado empleado) {
-		return empleadoRep.save(empleado);
+	public EmpleadoResponseDTO guardar(EmpleadoRequestDTO dto) {
+		
+		Empleado empleado = EmpleadoConverterDTO.toEntity(dto);
+		Empleado empleadoSave = empleadoRep.save(empleado);
+		return EmpleadoConverterDTO.toResponseDTO(empleadoSave);
 	}
 
 	@Override
@@ -36,6 +47,17 @@ public class EmpleadoServiceImp implements EmpleadoService{
 		
 	}
 
+	@Override
+	public EmpleadoResponseDTO editar(Long id, EmpleadoRequestDTO empleadoRequestDTO) {
+		  
+		Empleado empleado = empleadoRep.findById(id)
+		        .orElseThrow();
 
-	
+		EmpleadoConverterDTO.updateEntity(empleado, empleadoRequestDTO);
+
+		Empleado actualizado = empleadoRep.save(empleado);
+
+		return EmpleadoConverterDTO.toResponseDTO(actualizado);
+	}
+
 }

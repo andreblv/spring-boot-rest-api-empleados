@@ -1,7 +1,6 @@
 package com.empresa.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.empresa.entity.Empleado;
+
+import com.empresa.dto.EmpleadoRequestDTO;
+import com.empresa.dto.EmpleadoResponseDTO;
 import com.empresa.service.EmpleadoService;
 
 @RestController
@@ -24,42 +25,32 @@ public class EmpleadoController {
 	private EmpleadoService empleadoService;
 
 	@GetMapping
-	public ResponseEntity<List<Empleado>> listarTodos() {
-		List<Empleado> empleadosObj = empleadoService.listarTodos();
-		return ResponseEntity.ok(empleadosObj);
+	public ResponseEntity<List<EmpleadoResponseDTO>> listarTodos() {
+		return ResponseEntity.ok(empleadoService.listarTodos());
 	}
 
 	@PostMapping
-	public ResponseEntity<Empleado> guardar(@RequestBody Empleado empleado) {
-		Empleado nuevo = empleadoService.guardar(empleado);
-		return ResponseEntity.ok(nuevo);
+	public ResponseEntity<EmpleadoResponseDTO> guardar(@RequestBody EmpleadoRequestDTO empleado) {
+		return ResponseEntity.ok(empleadoService.guardar(empleado));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Empleado> editar(@PathVariable Long id, 
-			                               @RequestBody Empleado empleado) {
-		empleado.setId_empleado(id);
-		Empleado empleadoObj = empleadoService.guardar(empleado);
-		return ResponseEntity.ok(empleadoObj);
+	public ResponseEntity<EmpleadoResponseDTO> editar(@PathVariable Long id, 
+			                                          @RequestBody EmpleadoRequestDTO empleadoDTO) {
+	    return ResponseEntity.ok(empleadoService.editar(id, empleadoDTO));
 
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Empleado> buscarPorId(@PathVariable Long id) {
-		Optional<Empleado> empleado = empleadoService.buscarPorId(id);
-		
-		if (empleado.isPresent()) {
-			return ResponseEntity.ok(empleado.get());
-		}
-		return ResponseEntity.notFound().build();
+	public ResponseEntity<EmpleadoResponseDTO> buscarPorId(@PathVariable Long id) {
+		return ResponseEntity.ok(empleadoService.buscarPorId(id));
 
 	}
 	
-
 	@DeleteMapping("/{id}")
-	public ResponseEntity eliminar(@PathVariable Long id){
-		empleadoService.eliminar(id);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<Void> eliminar(@PathVariable Long id){
+        empleadoService.eliminar(id);
+        return ResponseEntity.noContent().build();
 	}
 	
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.empresa.dto.EmpleadoRequestDTO;
 import com.empresa.dto.EmpleadoResponseDTO;
 import com.empresa.service.EmpleadoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/empleados")
@@ -30,13 +31,13 @@ public class EmpleadoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<EmpleadoResponseDTO> guardar(@RequestBody EmpleadoRequestDTO empleado) {
+	public ResponseEntity<EmpleadoResponseDTO> guardar(@Valid  @RequestBody EmpleadoRequestDTO empleado) {
 		return ResponseEntity.ok(empleadoService.guardar(empleado));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<EmpleadoResponseDTO> editar(@PathVariable Long id, 
-			                                          @RequestBody EmpleadoRequestDTO empleadoDTO) {
+													 @Valid @RequestBody  EmpleadoRequestDTO empleadoDTO) {
 	    return ResponseEntity.ok(empleadoService.editar(id, empleadoDTO));
 
 	}

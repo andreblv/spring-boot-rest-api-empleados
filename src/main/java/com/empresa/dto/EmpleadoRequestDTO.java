@@ -31,7 +31,7 @@ public class EmpleadoRequestDTO {
 	@Email(message = "Correo inválido")	
 	private String correo_emp;
 	@NotBlank(message = "Número requerido")
-	@Pattern(regexp = "^\\{9}$", message = "El número solo puede tener 9 dígitos")
+	@Pattern(regexp = "^\\d{9}$", message = "El número solo puede tener 9 dígitos")
 	private String num_tel;
 	@NotBlank(message = "El estado es obligatorio")
 	private String estado;

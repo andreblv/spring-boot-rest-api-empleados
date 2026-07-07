@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.empresa.repository.EmpleadoRepository;
 import com.empresa.entity.Empleado;
+import com.empresa.exception.ResourceNotFoundException;
 
 @Service
 public class EmpleadoServiceImp implements EmpleadoService{
@@ -29,7 +30,8 @@ public class EmpleadoServiceImp implements EmpleadoService{
 	@Override
 	public EmpleadoResponseDTO buscarPorId(Long id) {
 		Empleado empleado = empleadoRep.findById(id)
-				.orElseThrow();
+				.orElseThrow(() ->
+                	new ResourceNotFoundException("No existe un empleado con el id: " + id));
 		return EmpleadoConverterDTO.toResponseDTO(empleado);
 	}
 
@@ -51,8 +53,8 @@ public class EmpleadoServiceImp implements EmpleadoService{
 	public EmpleadoResponseDTO editar(Long id, EmpleadoRequestDTO empleadoRequestDTO) {
 		  
 		Empleado empleado = empleadoRep.findById(id)
-		        .orElseThrow();
-
+				.orElseThrow(() -> 
+					new ResourceNotFoundException("No existe un empleado cn el id = " + id));
 		EmpleadoConverterDTO.updateEntity(empleado, empleadoRequestDTO);
 
 		Empleado actualizado = empleadoRep.save(empleado);

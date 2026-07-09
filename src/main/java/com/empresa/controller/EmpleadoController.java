@@ -1,7 +1,5 @@
 package com.empresa.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +15,8 @@ import com.empresa.dto.EmpleadoRequestDTO;
 import com.empresa.dto.EmpleadoResponseDTO;
 import com.empresa.service.EmpleadoService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/api/v1/empleados")
@@ -26,8 +26,8 @@ public class EmpleadoController {
 	private EmpleadoService empleadoService;
 
 	@GetMapping
-	public ResponseEntity<List<EmpleadoResponseDTO>> listarTodos() {
-		return ResponseEntity.ok(empleadoService.listarTodos());
+	public ResponseEntity<Page<EmpleadoResponseDTO>> listarTodos(Pageable pageable) {
+		return ResponseEntity.ok(empleadoService.listarTodos(pageable));
 	}
 
 	@PostMapping

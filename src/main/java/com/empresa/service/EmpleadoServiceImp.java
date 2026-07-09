@@ -7,6 +7,8 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.empresa.repository.EmpleadoRepository;
 import com.empresa.entity.Empleado;
@@ -19,12 +21,9 @@ public class EmpleadoServiceImp implements EmpleadoService{
 	private EmpleadoRepository empleadoRep;
 	
 	@Override
-	public List<EmpleadoResponseDTO> listarTodos() {
-	    return empleadoRep.findAll()
-	            .stream()
-	            .map(EmpleadoConverterDTO::toResponseDTO)
-	            .toList();
-
+	public Page<EmpleadoResponseDTO> listarTodos(Pageable pageable) {
+		 return empleadoRep.findAll(pageable)
+		            .map(EmpleadoConverterDTO::toResponseDTO);
 	}
 
 	@Override

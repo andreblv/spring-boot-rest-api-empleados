@@ -2,12 +2,12 @@ package com.empresa.service;
 
 import com.empresa.dto.EmpleadoRequestDTO;
 import com.empresa.dto.EmpleadoResponseDTO;
-import com.empresa.entity.Empleado;
-import java.util.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface EmpleadoService {
 	
-	List<EmpleadoResponseDTO> listarTodos();
+	Page<EmpleadoResponseDTO> listarTodos(Pageable pageable);
 	EmpleadoResponseDTO buscarPorId(Long id);
 	EmpleadoResponseDTO guardar(EmpleadoRequestDTO empleadoRequestDTO);
 	EmpleadoResponseDTO editar(Long id, EmpleadoRequestDTO empleadoRequestDTO);

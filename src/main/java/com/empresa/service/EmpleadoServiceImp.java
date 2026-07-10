@@ -61,4 +61,20 @@ public class EmpleadoServiceImp implements EmpleadoService{
 		return EmpleadoConverterDTO.toResponseDTO(actualizado);
 	}
 
+	@Override
+	public List<EmpleadoResponseDTO> buscarPorNombre(String nombre) {
+		return empleadoRep.findByNombreContainingIgnoreCase(nombre)
+				.stream()
+				.map(EmpleadoConverterDTO::toResponseDTO)
+				.toList();
+	}
+
+	@Override
+	public List<EmpleadoResponseDTO> buscarPorCargoPuesto(String cargoPuesto) {
+		return empleadoRep.findByCargoPuestoContainingIgnoreCase(cargoPuesto)
+				.stream()
+				.map(EmpleadoConverterDTO::toResponseDTO)
+				.toList();
+	}
+
 }

@@ -23,16 +23,16 @@ public class EmpleadoRequestDTO {
 	private String apellido;
 	@NotBlank(message = "DNI requerido")
 	@Pattern(regexp =  "^\\d{8}$", message = "Digite solo 8 dígitos")
-	private String num_dni;
+	private String numDni;
 	@NotBlank(message = "El  cargo es requerido")
-	private String cargo_puesto;
+	private String cargoPuesto;
 	@NotBlank(message = "Digite el departamento")
 	private String departamento;
 	@Email(message = "Correo inválido")	
-	private String correo_emp;
+	private String correoEmp;
 	@NotBlank(message = "Número requerido")
 	@Pattern(regexp = "^\\d{9}$", message = "El número solo puede tener 9 dígitos")
-	private String num_tel;
+	private String numTel;
 	@NotBlank(message = "El estado es obligatorio")
 	private String estado;
 

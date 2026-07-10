@@ -14,7 +14,7 @@ public class EmpleadoResponseDTO {
 	
 	private String nombre;
 	private String apellido;
-	private String cargo_puesto;
+	private String cargoPuesto;
 
 }
 	

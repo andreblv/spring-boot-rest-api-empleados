@@ -23,7 +23,7 @@ public class EmpleadoConverterDTO {
 		return new EmpleadoResponseDTO(
 			empleado.getNombre(),
 			empleado.getApellido(),
-			empleado.getCargo_puesto()
+			empleado.getCargoPuesto()
 		);
 	}
 	
@@ -32,11 +32,11 @@ public class EmpleadoConverterDTO {
 
         empleado.setNombre(dto.getNombre());
         empleado.setApellido(dto.getApellido());
-        empleado.setNum_dni(dto.getNum_dni());
-        empleado.setCargo_puesto(dto.getCargo_puesto());
+        empleado.setNumDni(dto.getNumDni());
+        empleado.setCargoPuesto(dto.getCargoPuesto());
         empleado.setDepartamento(dto.getDepartamento());
-        empleado.setCorreo_emp(dto.getCorreo_emp());
-        empleado.setNum_tel(dto.getNum_tel());
+        empleado.setCorreoEmp(dto.getCorreoEmp());
+        empleado.setNumTel(dto.getNumTel());
         empleado.setEstado(dto.getEstado());
 
     }

@@ -1,5 +1,6 @@
 package com.empresa.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,11 +20,15 @@ public class Empleado {
 	
 	private String nombre;
 	private String apellido;
-	private String num_dni;
-	private String cargo_puesto;
+	@Column(name = "num_dni")
+	private String numDni;
+	@Column(name = "cargo_puesto")
+	private String cargoPuesto;
 	private String departamento;
-	private String correo_emp;
-	private String num_tel;
+	@Column(name = "correo_emp")
+	private String correoEmp;
+	@Column(name = "num_tel")
+	private String numTel;
 	
 	private String estado;
 

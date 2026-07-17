@@ -2,6 +2,7 @@ package com.empresa.config;
 
 
 import java.util.Date;
+import java.util.Map;
 import java.util.function.Function;
 import javax.crypto.SecretKey;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,20 @@ public class JwtService {
 	//private static final String SECRET_KEY = "clave_Secreta";
 	@Value("${jwt.secret}")
 	private String SECRET_KEY;
+	
+	@Value("${jwt.expiration}")
+	private long jwtExpiration;
+	
+	
+	public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+		return Jwts.builder()
+				.claims(extraClaims)
+				.subject(userDetails.getUsername())
+				.issuedAt(new Date())
+				.expiration(new Date(System.currentTimeMillis() + jwtExpiration))
+				.signWith(getSignInKey())
+				.compact();
+	}
 	
 	public String getUsername(String token) {
 		return getClaim(token, Claims::getSubject);

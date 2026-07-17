@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -23,6 +24,9 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
+	
+	private final UserDetailsService userDetailsService;
+	private final JwtService jwtService;
 	
 	@Override
 	protected void doFilterInternal(@NonNull HttpServletRequest request, 
@@ -54,6 +58,8 @@ public class JwtFilter extends OncePerRequestFilter {
 				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 			}
 		}
+		
+		filterChain.doFilter(request, response);
 	}
 
 }
